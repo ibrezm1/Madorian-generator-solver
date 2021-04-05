@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+TABLE.gameboard {
+  border: 1px solid #CCC;
+}
+
+TABLE.gameboard TD {
+  width: 64px;
+  height: 64px;
+  margin: 1px;
+  background: #DDD;
+}
