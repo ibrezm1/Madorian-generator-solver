@@ -1,6 +1,5 @@
 import React from 'react';
 import MondrianBoard from './Vis/Board';
-import './App.css';
 import BoardState from './Solver/BoardState';
 import Controller from './Solver/SolverController';
 
