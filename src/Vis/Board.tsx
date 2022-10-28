@@ -9,13 +9,13 @@ class MondrianBoard extends React.Component<{boardState:BoardState,onCellClick:a
         for (var y = 0; y < 8; y++) {
             let cells = [];
             for (var x = 0; x < 8; x++) {
-                cells.push(<Field x={x} y={y} idx={this.props.boardState.fieldStates[(y*8)+x]} onClick={this.props.onCellClick} />);
+                cells.push(<Field key={x+"."+y} x={x} y={y} idx={this.props.boardState.fieldStates[(y*8)+x]} onClick={this.props.onCellClick} />);
             }
-            rows.push(<tr>{cells}</tr>);
+            rows.push(<tr key={y}>{cells}</tr>);
         }
-        return <table className="gameboard">
+        return <table className="gameboard"><tbody>
             {rows}
-        </table>;
+        </tbody></table>;
     }
 }
 
