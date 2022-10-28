@@ -1,12 +1,10 @@
 image: node:latest # can be upgraded, depending on your node version used
-
-variables:
-  CI: false
   
 pages:
   stage: deploy
   script:
   - npm install
+  - export CI=0
   - yarn build
   - rm -rf public
   - mv build public
