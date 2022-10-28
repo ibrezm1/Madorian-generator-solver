@@ -13,6 +13,9 @@ ReactDOM.render(
     <p>
       Click on the fields that are occupied by the black pieces in the puzzle description and let your web browser brute force a solution for you.
     </p>
+    <p>
+      You can always <a onClick={() => {window.location.reload()}} href="#">restart</a>.
+    </p>
     <App />
     <p className="footer">
       Brought to you by <a href="https://cottleston.io" target="_blank">Steffen Müller</a> because he was frustrated by the puzzles.
