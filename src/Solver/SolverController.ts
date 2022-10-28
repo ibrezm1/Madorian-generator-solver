@@ -7,6 +7,7 @@ class SolverController {
     isImpossible:boolean = false;
     winningBoard:BoardState|null = null;
     placeTryCounter = 0;
+    openSpawns = 0;
 
     startSolving(state:BoardState) {
         this.isWon = false;
@@ -22,7 +23,8 @@ class SolverController {
             isWon: this.isWon,
             isImpossible: this.isImpossible,
             winningBoard: this.winningBoard,
-            placeTries: this.placeTryCounter
+            placeTries: this.placeTryCounter,
+            openSpawns: this.openSpawns
         };
     }
 
@@ -55,8 +57,14 @@ class SolverController {
 
     spawnNextPiece(newIdx:number, newState:BoardState) {
         let self = this;
+        this.openSpawns++;
         setTimeout(function(){
             self.processPiece(newIdx, newState);
+            self.openSpawns--;
+
+            if (self.openSpawns < 1 && !self.isWon) {
+                self.isImpossible = true;
+            }
         }, 50);
     }
 };

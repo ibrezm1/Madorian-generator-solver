@@ -9,8 +9,10 @@ type AppProps = {
 type AppState = {
   boardState:BoardState,
   isInteractive:boolean,
-  index:number
-  isWon:boolean
+  index:number,
+  openSpawns:number,
+  isWon:boolean,
+  isImpossible:boolean
 };
 
 class App extends React.Component<AppProps,AppState> {
@@ -28,7 +30,9 @@ class App extends React.Component<AppProps,AppState> {
       boardState: this.boardState,
       isInteractive: true,
       index: 0,
-      isWon: false
+      openSpawns: 0,
+      isWon: false,
+      isImpossible: false
     };
   }
 
@@ -49,7 +53,7 @@ class App extends React.Component<AppProps,AppState> {
     setInterval(function(){
       let board = self.controller.isWon ? self.controller.winningBoard : self.controller.exampleState;
       if (board == null) board = self.boardState;
-      self.setState({index: self.controller.placeTryCounter, boardState: board, isWon: self.controller.isWon});
+      self.setState({index: self.controller.placeTryCounter, boardState: board, isWon: self.controller.isWon, openSpawns: self.controller.openSpawns, isImpossible: self.controller.isImpossible});
     }, 250);
 
     this.setState({
@@ -62,13 +66,15 @@ class App extends React.Component<AppProps,AppState> {
 
     let footer = <div className="explanation">Please click on the <b>6 fields</b> that are blocked in your puzzle.</div>;
     if (!this.state.isInteractive) {
-      if (!this.state.isWon)
-        footer = <div className="explanation">Calculating - trying combination {this.state.index}.</div>;
-      else
+      if (this.state.isImpossible)
+        footer = <div className="explanation"><span className="lost">Impossible!</span> After {this.state.index} moves, it became clear that there's no solution.</div>;
+      else if (this.state.isWon)
         footer = <div className="explanation"><b>Solution found!</b> Tried {this.state.index} combinations.</div>;
+      else
+        footer = <div className="explanation">Calculating - trying combination {this.state.index} / {this.state.openSpawns}.</div>;
     }
     else if (this.boardState.getBlockedCount() === 6)
-      footer = <button onClick={this.handleStartClick.bind(this)}>Solve this Mondrian!</button>;
+      footer = <div className="explanation"><button onClick={this.handleStartClick.bind(this)}>Solve this Mondrian!</button></div>;
     
     return (
       <div className="App">
