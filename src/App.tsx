@@ -45,7 +45,6 @@ class App extends React.Component<AppProps,AppState> {
     if (!this.state.isInteractive) return;
 
     this.controller.startSolving(this.boardState);
-    let index = 0;
     let self = this;
     setInterval(function(){
       let board = self.controller.isWon ? self.controller.winningBoard : self.controller.exampleState;
@@ -68,7 +67,7 @@ class App extends React.Component<AppProps,AppState> {
       else
         footer = <div className="explanation"><b>Solution found!</b> Tried {this.state.index} combinations.</div>;
     }
-    else if (this.boardState.getBlockedCount() == 6)
+    else if (this.boardState.getBlockedCount() === 6)
       footer = <button onClick={this.handleStartClick.bind(this)}>Solve this Mondrian!</button>;
     
     return (

@@ -9,7 +9,7 @@ class MondrianBoardField extends React.Component<{x:number,y:number,idx:number,o
     }
 
     calculateCSS(): object {
-        if (this.props.idx == BoardState.IDX_BLOCKED)
+        if (this.props.idx === BoardState.IDX_BLOCKED)
             return {backgroundColor: "#333"};
         else if (this.props.idx >= 0)
             return {backgroundColor: PieceRegistry[this.props.idx].color};

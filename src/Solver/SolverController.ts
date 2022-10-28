@@ -27,7 +27,6 @@ class SolverController {
     }
 
     processPiece(idx:number, state:BoardState) {
-        let self = this;
         let localState = state.copy();
         for (var rotated = 0; rotated < 2; rotated++) {
             for (var x = 0; x < 8; x++) {
@@ -37,7 +36,7 @@ class SolverController {
                     // Try if we can place it here
                     if (localState.placePiece(idx, x, y, !!rotated)) {
                         // We could place it - if we were the last part, we have won!
-                        if (idx == PieceRegistry.length-1) {
+                        if (idx === PieceRegistry.length-1) {
                             this.isWon = true;
                             this.winningBoard = localState;
                         }
@@ -55,7 +54,7 @@ class SolverController {
     }
 
     spawnNextPiece(newIdx:number, newState:BoardState) {
-        var self = this;
+        let self = this;
         setTimeout(function(){
             self.processPiece(newIdx, newState);
         }, 50);

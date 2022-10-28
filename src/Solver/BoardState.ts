@@ -10,7 +10,7 @@ class BoardState {
 
         if (fs) {
             this.fieldStates = fs;
-            if (this.fieldStates.length != 64)
+            if (this.fieldStates.length !== 64)
                 throw new Error("Invalid state passed to BoardState constructor - must be 64 fields, got "+fs.length+" instead.");
         } else {
             this.fieldStates = new Array<number>(64);
@@ -49,7 +49,7 @@ class BoardState {
         // Check that all fields we will occupy are empty
         for (let i = 0; i < w; i++) {
             for (let j = 0; j < h; j++) {
-                if (this.fieldStates[(y+j)*8 + (x+i)] != BoardState.IDX_EMPTY)
+                if (this.fieldStates[(y+j)*8 + (x+i)] !== BoardState.IDX_EMPTY)
                     return false;
             }
         }
@@ -66,7 +66,7 @@ class BoardState {
 
     toggleBlocked(x:number, y:number):void {
         let idx = (y*8) + x;
-        if (this.fieldStates[idx] == BoardState.IDX_BLOCKED) {
+        if (this.fieldStates[idx] === BoardState.IDX_BLOCKED) {
             this.fieldStates[idx] = BoardState.IDX_EMPTY;
         } else {
             this.fieldStates[idx] = BoardState.IDX_BLOCKED;
@@ -76,7 +76,7 @@ class BoardState {
     getBlockedCount():number {
         let c = 0;
         for (let i = 0; i < 64; i++) {
-            if (this.fieldStates[i] == BoardState.IDX_BLOCKED)
+            if (this.fieldStates[i] === BoardState.IDX_BLOCKED)
                 c++;
         }
         return c;
