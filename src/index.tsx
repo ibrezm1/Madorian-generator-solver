@@ -8,18 +8,18 @@ ReactDOM.render(
   <React.StrictMode>
     <h1>Mondrian Solver</h1>
     <p>
-      Use this tiny web application to solve Mondrian Blocks Puzzles (<a target="_blank" href="https://www.amazon.de/Mondrian-Blocks-Winning-Kompaktes-Reisespiel/dp/B083XWNTZ5">link to the game on Amazon.de</a>).
+      Use this tiny web application to solve Mondrian Blocks Puzzles (<a target="_blank" rel="noreferrer" href="https://www.amazon.de/Mondrian-Blocks-Winning-Kompaktes-Reisespiel/dp/B083XWNTZ5">link to the game on Amazon.de</a>).
     </p>
     <p>
       Click on the fields that are occupied by the black pieces in the puzzle description and let your web browser brute force a solution for you.
     </p>
     <p>
-      You can always <a onClick={() => {window.location.reload()}} href="#">restart</a>.
+      You can always <a onClick={() => {window.location.reload(); return false}} href="/">restart</a>.
     </p>
     <App />
     <p className="footer">
-      Brought to you by <a href="https://cottleston.io" target="_blank">Steffen Müller</a> because he was frustrated by the puzzles.
-      This app is open source, feel free to <a href="https://gitlab.com/cottleston/mondrian-solver" target="_blank">visit its Git repository</a>.
+      Brought to you by <a href="https://cottleston.io" target="_blank" rel="noreferrer">Steffen Müller</a> because he was frustrated by the puzzles.
+      This app is open source, feel free to <a href="https://gitlab.com/cottleston/mondrian-solver" target="_blank" rel="noreferrer">visit its Git repository</a>.
     </p>
   </React.StrictMode>,
   document.getElementById('root')
