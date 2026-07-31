@@ -8,13 +8,28 @@ class SolverController {
     winningBoard:BoardState|null = null;
     placeTryCounter = 0;
     openSpawns = 0;
+    currentSessionId = 0;
 
     startSolving(state:BoardState) {
         this.isWon = false;
         this.isImpossible = false;
         this.winningBoard = null;
+        this.placeTryCounter = 0;
+        this.openSpawns = 0;
+        this.currentSessionId++;
 
-        this.processPiece(0, state);
+        let cleanState = state.copy();
+        cleanState.clearPlacements();
+
+        this.processPiece(0, cleanState, this.currentSessionId);
+    }
+
+    stopSolving() {
+        this.currentSessionId++;
+        this.isWon = false;
+        this.isImpossible = false;
+        this.winningBoard = null;
+        this.openSpawns = 0;
     }
 
     getStatus() {
@@ -28,11 +43,14 @@ class SolverController {
         };
     }
 
-    processPiece(idx:number, state:BoardState) {
+    processPiece(idx:number, state:BoardState, sessionId:number) {
+        if (sessionId !== this.currentSessionId || this.isWon) return;
+
         let localState = state.copy();
         for (var rotated = 0; rotated < 2; rotated++) {
             for (var x = 0; x < 8; x++) {
                 for (var y = 0; y < 8; y++) {
+                    if (sessionId !== this.currentSessionId || this.isWon) return;
                     this.placeTryCounter++;
 
                     // Try if we can place it here
@@ -45,7 +63,7 @@ class SolverController {
                         // We are not the last piece - mark a run for the next piece from the
                         // new local board, then reset the board and try the next configuration.
                         else {
-                            this.spawnNextPiece(idx+1, localState);
+                            this.spawnNextPiece(idx+1, localState, sessionId);
                             this.exampleState = localState;
                             localState = state.copy();
                         }
@@ -55,11 +73,15 @@ class SolverController {
         }
     }
 
-    spawnNextPiece(newIdx:number, newState:BoardState) {
+    spawnNextPiece(newIdx:number, newState:BoardState, sessionId:number) {
         let self = this;
         this.openSpawns++;
         setTimeout(function(){
-            self.processPiece(newIdx, newState);
+            if (sessionId !== self.currentSessionId) {
+                self.openSpawns--;
+                return;
+            }
+            self.processPiece(newIdx, newState, sessionId);
             self.openSpawns--;
 
             if (self.openSpawns < 1 && !self.isWon) {

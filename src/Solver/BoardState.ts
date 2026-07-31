@@ -82,6 +82,31 @@ class BoardState {
         return c;
     }
 
+    removePiece(pieceIndex:number):void {
+        for (let i = 0; i < 64; i++) {
+            if (this.fieldStates[i] === pieceIndex) {
+                this.fieldStates[i] = BoardState.IDX_EMPTY;
+            }
+        }
+    }
+
+    clearPlacements():void {
+        for (let i = 0; i < 64; i++) {
+            if (this.fieldStates[i] >= 0) {
+                this.fieldStates[i] = BoardState.IDX_EMPTY;
+            }
+        }
+    }
+
+    isPiecePlaced(pieceIndex:number):boolean {
+        for (let i = 0; i < 64; i++) {
+            if (this.fieldStates[i] === pieceIndex) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 };
 
 export default BoardState;
