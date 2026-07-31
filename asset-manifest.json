@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Madorian-generator-solver/static/css/main.754ebb54.css",
+    "main.js": "/Madorian-generator-solver/static/js/main.8ce16464.js",
+    "index.html": "/Madorian-generator-solver/index.html",
+    "main.754ebb54.css.map": "/Madorian-generator-solver/static/css/main.754ebb54.css.map",
+    "main.8ce16464.js.map": "/Madorian-generator-solver/static/js/main.8ce16464.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.754ebb54.css",
+    "static/js/main.8ce16464.js"
+  ]
+}
