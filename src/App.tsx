@@ -5,6 +5,7 @@ import Controller from './Solver/SolverController';
 import Levels from './Solver/Levels';
 import PieceRegistry from './Solver/PieceRegistry';
 import PieceTray from './Vis/PieceTray';
+import { PuzzleGenerator } from './Solver/PuzzleGenerator';
 
 type AppProps = {};
 type AppState = {
@@ -301,6 +302,36 @@ class App extends React.Component<AppProps, AppState> {
     });
   }
 
+  handleGeneratePuzzle() {
+    this.clearSolverInterval();
+    this.controller.stopSolving();
+
+    // Determine target difficulty
+    let difficulty = 'Medium';
+    if (this.state.selectedLevelId > 0) {
+      difficulty = Levels[this.state.selectedLevelId - 1].difficulty;
+    }
+
+    const blockedCells = PuzzleGenerator.generate(difficulty);
+    
+    const newBoard = new BoardState();
+    blockedCells.forEach(cell => {
+      newBoard.toggleBlocked(cell.x, cell.y);
+    });
+
+    this.setState({
+      boardState: newBoard,
+      gameMode: 'play',
+      selectedPieceIndex: null,
+      rotationState: false,
+      hoveredCell: null,
+      isWon: false,
+      isImpossible: false,
+      solverTries: 0,
+      openSpawns: 0
+    });
+  }
+
   render() {
     const { 
       boardState, 
@@ -428,6 +459,14 @@ class App extends React.Component<AppProps, AppState> {
                       🤖 Auto Solve
                     </button>
                   </div>
+                  <div className="flex flex-col gap-2 mt-2">
+                    <button
+                      onClick={this.handleGeneratePuzzle.bind(this)}
+                      className="w-full py-2 px-4 rounded-xl text-sm font-bold bg-indigo-500 hover:bg-indigo-600 text-white shadow-md shadow-indigo-500/20 active:scale-95 transition-all animate-pulse-subtle"
+                    >
+                      ✨ Auto-Generate ({selectedLevelId > 0 ? Levels[selectedLevelId - 1].difficulty : 'Medium'})
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -469,6 +508,14 @@ class App extends React.Component<AppProps, AppState> {
                         🗑️ Reset Grid
                       </button>
                     )}
+                  </div>
+                  <div className="mt-2.5 pt-2.5 border-t border-slate-200 dark:border-slate-800/80">
+                    <button
+                      onClick={this.handleGeneratePuzzle.bind(this)}
+                      className="w-full py-2 px-4 rounded-xl text-xs font-bold bg-indigo-500 hover:bg-indigo-600 text-white shadow-md shadow-indigo-500/20 active:scale-95 transition-all"
+                    >
+                      ✨ Auto-Generate ({selectedLevelId > 0 ? Levels[selectedLevelId - 1].difficulty : 'Medium'})
+                    </button>
                   </div>
                 </div>
               )}
