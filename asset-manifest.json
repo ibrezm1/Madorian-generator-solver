@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Madorian-generator-solver/static/css/main.754ebb54.css",
-    "main.js": "/Madorian-generator-solver/static/js/main.1f464012.js",
+    "main.js": "/Madorian-generator-solver/static/js/main.8d02d6af.js",
     "index.html": "/Madorian-generator-solver/index.html",
     "main.754ebb54.css.map": "/Madorian-generator-solver/static/css/main.754ebb54.css.map",
-    "main.1f464012.js.map": "/Madorian-generator-solver/static/js/main.1f464012.js.map"
+    "main.8d02d6af.js.map": "/Madorian-generator-solver/static/js/main.8d02d6af.js.map"
   },
   "entrypoints": [
     "static/css/main.754ebb54.css",
-    "static/js/main.1f464012.js"
+    "static/js/main.8d02d6af.js"
   ]
 }
